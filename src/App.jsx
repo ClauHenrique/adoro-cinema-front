@@ -1,33 +1,46 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Link } from 'react-router-dom'
+// import './App.css'
+import { cadastrar } from './services/cadastrar'
+
 
 function App() {
   const [count, setCount] = useState(0)
+  const [exibRegistros, setExibRegistros] = useState(false)
+  const [exibResult, setExibResult] = useState(false)
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+      <div className='main'>
+          <h1>Calculadora de Água Diaria</h1>
+
+          <h3>digite o seu peso e veja a quantidade de agua que voce deve tomar por dia</h3>
+
+          <form>
+            <label htmlFor="name">Qual o seu nome: </label>
+            <input type="text" name="name" id="name" />
+
+            <label htmlFor="peso">Digite o seu peso: </label>
+            <input type="number" name="peso" id="peso" min={0} />
+
+          </form>
+
+        {
+          exibResult ?
+          <div>Resultado</div>
+          :
+          null
+        }
+
+        <button onClick={() => {
+          setExibResult(!exibResult)
+          cadastrar()
+          }}>
+          calcular
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+            
+        <Link to={"/registros"}>ver cadastros anteriores</Link>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
