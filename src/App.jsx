@@ -5,9 +5,18 @@ import { cadastrar } from './services/cadastrar'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [exibRegistros, setExibRegistros] = useState(false)
+  const [quant, setQant] = useState(0)
+  const [peso, setPeso] = useState(0)
+  const [nome, setNome] = useState("")
   const [exibResult, setExibResult] = useState(false)
+
+  const calcularAgua = (peso) => {
+    const quantRecom = peso * 35
+
+    const quantlitros = (quantRecom / 1000).toFixed(2);
+
+    setQant(quantlitros)
+  }
 
   return (
     <>
@@ -18,22 +27,38 @@ function App() {
 
           <form>
             <label htmlFor="name">Qual o seu nome: </label>
-            <input type="text" name="name" id="name" />
+            <input
+              type="text" 
+              name="name" 
+              id="name" 
+              value={nome} 
+              onChange={(e) => {
+                setNome(e.target.value)
+             }} />
 
             <label htmlFor="peso">Digite o seu peso: </label>
-            <input type="number" name="peso" id="peso" min={0} />
+            <input 
+              type="number" 
+              name="peso" 
+              id="peso" 
+              min={0} 
+              value={peso} 
+              onChange={(e) => {
+                setPeso(e.target.value)
+              }} />
 
           </form>
 
         {
           exibResult ?
-          <div>Resultado</div>
+          <div>{nome}, voce deve tomar {quant} litros de agua por dia!</div>
           :
           null
         }
 
         <button onClick={() => {
           setExibResult(!exibResult)
+          calcularAgua(peso)
           cadastrar()
           }}>
           calcular
