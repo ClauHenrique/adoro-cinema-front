@@ -59,7 +59,7 @@ function App() {
         <button onClick={() => {
           setExibResult(!exibResult)
           calcularAgua(peso)
-          cadastrar()
+          // cadastrar()
           }}>
           calcular
         </button>
